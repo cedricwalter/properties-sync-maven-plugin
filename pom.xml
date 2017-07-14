@@ -8,17 +8,38 @@
     <modelVersion>4.0.0</modelVersion>
     <version>1.0</version>
     <packaging>maven-plugin</packaging>
+    <name>${project.groupId}:${project.artifactId}</name>
+
+    <description>Apache maven plugin for failing fast at build time when using maven resources filtering with environment
+        based filters. This maven plugin will force you to keep in sync all properties files with the reference.
+    </description>
+    <url>https://github.com/cedricwalter/properties-sync-maven-plugin</url>
 
     <properties>
         <min.maven.version>3.3.9</min.maven.version>
-
     </properties>
+
+    <licenses>
+        <license>
+            <name>GNU/GPL v3</name>
+            <url>https://opensource.org/licenses/GPL-3.0</url>
+        </license>
+    </licenses>
 
     <prerequisites>
         <maven>${min.maven.version}</maven>
     </prerequisites>
 
     <inceptionYear>2017</inceptionYear>
+
+    <developers>
+        <developer>
+            <name>Cédric Walter</name>
+            <email>cedric.walter@gmail.com</email>
+            <organization>None</organization>
+            <organizationUrl>www.cedricwalter.com</organizationUrl>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
@@ -127,5 +148,75 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+    <scm>
+        <connection>scm:git:https://github.com/cedricwalter/properties-sync-maven-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/cedricwalter/properties-sync-maven-plugin.git
+        </developerConnection>
+        <url>https://github.com/cedricwalter/properties-sync-maven-plugin.git</url>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

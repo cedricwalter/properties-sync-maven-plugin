@@ -15,7 +15,7 @@ This maven plugin will force you to keep in sync all properties files with the r
 ```<build>
 <plugins>
     <plugin>
-        <groupId>com.cedricwalter.maven.properties</groupId>
+        <groupId>com.cedricwalter.maven</groupId>
         <artifactId>properties-sync-maven-plugin</artifactId>
         <version>1.0</version>
         <executions>
@@ -76,7 +76,7 @@ Example of filtering
             </executions>
         </plugin>
         <plugin>
-                <groupId>com.cedricwalter.maven.properties</groupId>
+                <groupId>com.cedricwalter.maven</groupId>
                 <artifactId>properties-sync-maven-plugin</artifactId>
                 <version>1.0</version>
                 <executions>
